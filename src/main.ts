@@ -5,10 +5,23 @@ class Main {
     
     constructor() {
         let canvas = document.createElement("canvas");
+        canvas.style.width = '100%';
+        canvas.style.height = '100%';
         document.body.appendChild(canvas);
         let engine = new Engine(canvas, true);
         let scene = this.createScene(engine, canvas);
         
+        window.addEventListener("resize", function () {
+            engine.resize();
+        })
+
+        window.addEventListener("keydown", (ev) => {
+            // Shift+Ctrl+Alt+F
+            if (ev.shiftKey && ev.ctrlKey && ev.altKey && ev.code === "KeyF") {
+                engine.switchFullscreen(false);
+            }
+        });
+
         engine.runRenderLoop(function () {
             scene.render();
         })

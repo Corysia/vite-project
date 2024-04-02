@@ -9,6 +9,7 @@
       - [Edit the `index.html` file](#edit-the-indexhtml-file)
       - [Edit the `tsconfig.json` file](#edit-the-tsconfigjson-file)
       - [Create a new `main.ts` file](#create-a-new-maints-file)
+    - [Fullscreen Mode](#fullscreen-mode)
 
 ## Getting Started
 
@@ -183,3 +184,32 @@ class Main {
 new Main();
 ```
 
+### Fullscreen Mode
+
+Edit the `main.ts` file to add the following code:
+
+```typescript
+canvas.style.width = '100%';
+canvas.style.height = '100%';
+```
+
+This will allow the canvas to fill the entire browser window.
+
+To handle the browser changing sizes, add the following code:
+
+```typescript
+window.addEventListener("resize", function () {
+    engine.resize();
+});
+```
+
+Add the following code to toggle fullscreen mode with Shift-Ctrl-Alt-F.
+
+```typescript
+window.addEventListener("keydown", (ev) => {
+    // Shift+Ctrl+Alt+F
+    if (ev.shiftKey && ev.ctrlKey && ev.altKey && ev.code === "KeyF") {
+        engine.switchFullscreen(false);
+    }
+});
+```
