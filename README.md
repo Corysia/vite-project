@@ -3,7 +3,11 @@
 - [Game](#game)
   - [Getting Started](#getting-started)
     - [Project Setup](#project-setup)
+      - [Prerequisites](#prerequisites)
+      - [Project Creation](#project-creation)
+      - [Update NPM](#update-npm)
       - [Running the project](#running-the-project)
+      - [Iterative Development](#iterative-development)
       - [Remove boilerplate code](#remove-boilerplate-code)
       - [Install BabylonJS](#install-babylonjs)
       - [Edit the `index.html` file](#edit-the-indexhtml-file)
@@ -16,13 +20,48 @@
 
 ### Project Setup
 
+#### Prerequisites
+
+You must have `npm` and `node` installed.
+
+- Windows: [Node.js](https://nodejs.org/en/)  You can also use the Windows package manager called `winget`:
+  - Open a terminal and run `winget install nodejs`
+- macOS: [Node.js](https://nodejs.org/en/)
+- Linux: [Node.js](https://nodejs.org/en/)
+
+#### Project Creation
+
 Start by creating a new `vite` project.
 
 ```bash
 npm create vite
 ```
 
+You might need to install the `create-vite` package.  You'll see a prompt something like this if you do:
+
+```bash
+Need to install the following packages:
+create-vite@5.2.3
+Ok to proceed? (y)
+```
+
+Just press return and the package will install.
+
 You'll be prompted to name your project and select a project type.  Name your project and then select `Vanilla` as the project type.  Choose `TypeScript` as your project language.
+
+#### Update NPM
+
+You might need to update your NPM to the latest version.  You might see a message similar to the following:
+
+```bash
+npm notice
+npm notice New minor version of npm available! 10.1.0 -> 10.5.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v10.5.0
+npm notice Run npm install -g npm@10.5.0 to update!
+npm notice
+```
+
+You can either ignore it for now or update it to the latest version.
 
 #### Running the project
 
@@ -36,7 +75,11 @@ Starting the project by following the instructions you're presented with:
 
 where `vite-project` is whatever you named your project.
 
-The `npm run dev` command starts the project.  If you press `o`, your browser will open to your project, hosted locally on your machine.  If you press `q`, the project will close.uit
+The `npm run dev` command starts the project.  If you press `o` and then `enter`, your browser will open to your project, hosted locally on your machine.  If you press `q` and then `enter`, the project will close it.
+
+#### Iterative Development
+
+You can edit your source while the project is running.  Occasionally, you will need to either refresh your browser or restart the server.  But for the most part, you can start the server and see your changes update instantly in the browser each time you save the file.
 
 #### Remove boilerplate code
 
