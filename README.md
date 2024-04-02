@@ -10,6 +10,7 @@
       - [Edit the `tsconfig.json` file](#edit-the-tsconfigjson-file)
       - [Create a new `main.ts` file](#create-a-new-maints-file)
     - [Fullscreen Mode](#fullscreen-mode)
+    - [Showing the Inspector](#showing-the-inspector)
 
 ## Getting Started
 
@@ -134,7 +135,6 @@ Now that we have a basic project set up, we can start adding code to it.  Create
 
 ```typescript
 import { Scene, Engine, FreeCamera, HemisphericLight, MeshBuilder, Vector3 } from "@babylonjs/core";
-import "@babylonjs/inspector";
 
 class Main {
     
@@ -189,8 +189,13 @@ new Main();
 Edit the `main.ts` file to add the following code:
 
 ```typescript
-canvas.style.width = '100%';
-canvas.style.height = '100%';
+    constructor() {
+        let canvas = document.createElement("canvas");
+>       canvas.style.width = '100%';
+>       canvas.style.height = '100%';
+        document.body.appendChild(canvas);
+        let engine = new Engine(canvas, true);
+        let scene = this.createScene(engine, canvas);
 ```
 
 This will allow the canvas to fill the entire browser window.
@@ -198,18 +203,60 @@ This will allow the canvas to fill the entire browser window.
 To handle the browser changing sizes, add the following code:
 
 ```typescript
-window.addEventListener("resize", function () {
-    engine.resize();
-});
+    constructor() {
+        let canvas = document.createElement("canvas");
+        canvas.style.width = '100%';
+        canvas.style.height = '100%';
+        document.body.appendChild(canvas);
+        let engine = new Engine(canvas, true);
+        let scene = this.createScene(engine, canvas);
+        
+>        window.addEventListener("resize", function () {
+>            engine.resize();
+>        });
 ```
 
 Add the following code to toggle fullscreen mode with Shift-Ctrl-Alt-F.
 
 ```typescript
-window.addEventListener("keydown", (ev) => {
-    // Shift+Ctrl+Alt+F
-    if (ev.shiftKey && ev.ctrlKey && ev.altKey && ev.code === "KeyF") {
-        engine.switchFullscreen(false);
-    }
-});
+        let engine = new Engine(canvas, true);
+        let scene = this.createScene(engine, canvas);
+        
+        window.addEventListener("resize", function () {
+            engine.resize();
+        });
+
+>       window.addEventListener("keydown", (ev) => {
+>           // Shift+Ctrl+Alt+F
+>           if (ev.shiftKey && ev.ctrlKey && ev.altKey && ev.code === "KeyF") {
+>               engine.switchFullscreen(false);
+>           }
+>       });          
+```
+
+### Showing the Inspector
+
+Edit the `main.ts` file to add the following code:
+
+```typescript
+import "@babylonjs/inspector";
+```
+
+Update the `main.ts` file to add the following code to toggle the inspector with Shift-Ctrl-I.
+
+```typescript
+        window.addEventListener("keydown", (ev) => {
+            // Shift+Ctrl+Alt+F
+            if (ev.shiftKey && ev.ctrlKey && ev.altKey && ev.code === "KeyF") {
+                engine.switchFullscreen(false);
+            }
+>            // Shift+Ctrl+Alt+I
+>            if (ev.shiftKey && ev.ctrlKey && ev.altKey && ev.code === "KeyI") {
+>                if (scene.debugLayer.isVisible()) {
+>                    scene.debugLayer.hide();
+>                } else {
+>                    scene.debugLayer.show();
+>                }
+>            }
+        });
 ```

@@ -13,12 +13,20 @@ class Main {
         
         window.addEventListener("resize", function () {
             engine.resize();
-        })
+        });
 
         window.addEventListener("keydown", (ev) => {
             // Shift+Ctrl+Alt+F
             if (ev.shiftKey && ev.ctrlKey && ev.altKey && ev.code === "KeyF") {
                 engine.switchFullscreen(false);
+            }
+            // Shift+Ctrl+Alt+I
+            if (ev.shiftKey && ev.ctrlKey && ev.altKey && ev.code === "KeyI") {
+                if (scene.debugLayer.isVisible()) {
+                    scene.debugLayer.hide();
+                } else {
+                    scene.debugLayer.show();
+                }
             }
         });
 
