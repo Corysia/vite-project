@@ -1,6 +1,7 @@
 # Game
 
 - [Game](#game)
+  - [Demo](#demo)
   - [Getting Started](#getting-started)
     - [Project Setup](#project-setup)
       - [Prerequisites](#prerequisites)
@@ -15,6 +16,17 @@
       - [Create a new `main.ts` file](#create-a-new-maints-file)
     - [Fullscreen Mode](#fullscreen-mode)
     - [Showing the Inspector](#showing-the-inspector)
+    - [Deploying to GitHub Pages](#deploying-to-github-pages)
+      - [Create a GitHub repository](#create-a-github-repository)
+        - [Add your project to the repository](#add-your-project-to-the-repository)
+        - [Configure GitHub Pages](#configure-github-pages)
+      - [Create a `vite.config.js` file](#create-a-viteconfigjs-file)
+      - [Create a `deploy.yml` file](#create-a-deployyml-file)
+      - [Push your changes](#push-your-changes)
+
+## Demo
+
+See [here](https://corysia.github.io/vite-project/) for a live demo of the project.
 
 ## Getting Started
 
@@ -303,3 +315,89 @@ Update the `main.ts` file to add the following code to toggle the inspector with
 >            }
         });
 ```
+
+### Deploying to GitHub Pages
+
+Deploy your project to GitHub Pages by following the instructions in the following sections.
+
+#### Create a GitHub repository
+
+##### Add your project to the repository
+
+##### Configure GitHub Pages
+
+Under settings, select `Pages`.  Set it to use GitHub Actions.
+
+#### Create a `vite.config.js` file
+
+Edit the `vite.config.js` file to add the following code.  Your base should be your repository name.
+
+```javascript
+import { defineConfig } from 'vite'
+
+// https://vitejs.dev/config/
+export default defineConfig({
+	base: '/vite-project/'
+})
+```
+
+#### Create a `deploy.yml` file
+
+Create the subdirectory `.github/workflows` and add the following code to a file named `deploy.yml`:
+
+```shell
+# Simple workflow for deploying static content to GitHub Pages
+name: Deploy static content to Pages
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ["main"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# Sets the GITHUB_TOKEN permissions to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  # Single deploy job since we're just deploying
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+      - name: Install dependencies
+        run: npm ci
+      - name: Build
+        run: npm run build
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Upload dist folder
+          path: "./dist"
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+```
+#### Push your changes
+
+Push your changes up to github.  You should see the deployment of the project in the GitHub Actions tab.  If it is successful, you should be able to browse to https://\<your-github-username>.github.io/vite-project/.
