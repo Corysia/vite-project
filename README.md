@@ -291,7 +291,7 @@ Add the following code to toggle fullscreen mode with Shift-Ctrl-Alt-F.
 
 ### Showing the Inspector
 
-Edit the `main.ts` file to add the following code:
+Edit the `main.ts` file to add another import to the top of the file:
 
 ```typescript
 import "@babylonjs/inspector";
@@ -398,6 +398,7 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 ```
+
 #### Push your changes
 
-Push your changes up to github.  You should see the deployment of the project in the GitHub Actions tab.  If it is successful, you should be able to browse to https://\<your-github-username>.github.io/vite-project/.
+Push your changes up to github.  You should see the deployment of the project in the GitHub Actions tab.  If it is successful, you should be able to browse to `https://<your-github-username>.github.io/<your-repository-name>/`.
