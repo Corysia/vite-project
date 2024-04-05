@@ -23,6 +23,7 @@
       - [Create a `vite.config.js` file](#create-a-viteconfigjs-file)
       - [Create a `deploy.yml` file](#create-a-deployyml-file)
       - [Push your changes](#push-your-changes)
+  - [Integrated Debugging with VS Code](#integrated-debugging-with-vs-code)
 
 ## Demo
 
@@ -402,3 +403,25 @@ jobs:
 #### Push your changes
 
 Push your changes up to github.  You should see the deployment of the project in the GitHub Actions tab.  If it is successful, you should be able to browse to `https://<your-github-username>.github.io/<your-repository-name>/`.
+
+## Integrated Debugging with VS Code
+
+Create a `launch.json` file within your .vscode folder and add the following code to it:
+
+```json
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch Chrome",
+            "request": "launch",
+            "type": "chrome",
+            "url": "http://localhost:5173",
+            "webRoot": "${workspaceFolder}"
+        }
+    ]
+}
+```
