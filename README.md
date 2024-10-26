@@ -21,6 +21,7 @@
         - [Add your project to the repository](#add-your-project-to-the-repository)
         - [Configure GitHub Pages](#configure-github-pages)
       - [Create a `vite.config.js` file](#create-a-viteconfigjs-file)
+        - [Support HTTPS](#support-https)
       - [Create a `deploy.yml` file](#create-a-deployyml-file)
       - [Push your changes](#push-your-changes)
   - [Integrated Debugging with VS Code](#integrated-debugging-with-vs-code)
@@ -338,7 +339,7 @@ import { defineConfig } from 'vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-	base: '/vite-project/'
+  base: '/vite-project/'
 })
 ```
 
@@ -354,13 +355,13 @@ Update the vite.config.js to use https
 
 ```javascript
 import { defineConfig } from 'vite'
-import mkcert from 'vite-plugin-mkcert'
+> import mkcert from 'vite-plugin-mkcert'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-	base: '/vite-project/',
-  server: { https: true }, // Not needed for Vite 5+
-  plugins: [ mkcert() ]
+  base: '/vite-project/',
+> server: { https: true }, // Not needed for Vite 5+
+> plugins: [ mkcert() ]
 })
 ```
 
