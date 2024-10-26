@@ -342,6 +342,28 @@ export default defineConfig({
 })
 ```
 
+##### Support HTTPS
+
+To support HTTPS connections (needed for WebXR), install the vite mkcert plugin
+
+```bash
+npm i vite-plugin-mkcert -D
+```
+
+Update the vite.config.js to use https
+
+```javascript
+import { defineConfig } from 'vite'
+import mkcert from 'vite-plugin-mkcert'
+
+// https://vitejs.dev/config/
+export default defineConfig({
+	base: '/vite-project/',
+  server: { https: true }, // Not needed for Vite 5+
+  plugins: [ mkcert() ]
+})
+```
+
 #### Create a `deploy.yml` file
 
 Create the subdirectory `.github/workflows` and add the following code to a file named `deploy.yml`:
