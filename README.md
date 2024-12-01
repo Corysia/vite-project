@@ -41,7 +41,11 @@ You must have `npm` and `node` installed.
 - Windows: [Node.js](https://nodejs.org/en/)  You can also use the Windows package manager called `winget`:
   - Open a terminal and run `winget install nodejs`
 - macOS: [Node.js](https://nodejs.org/en/)
+  - MacPorts: `sudo port install npm10`
+  - Homebrew: `brew install node@10`
 - Linux: [Node.js](https://nodejs.org/en/)
+  - apt-get: `apt-get install nodejs`
+  - yum: `yum install nodejs`
 
 #### Project Creation
 
