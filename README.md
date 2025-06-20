@@ -6,6 +6,7 @@
     - [Project Setup](#project-setup)
       - [Prerequisites](#prerequisites)
       - [Project Creation](#project-creation)
+      - [Note](#note)
       - [Update NPM](#update-npm)
       - [Running the project](#running-the-project)
       - [Iterative Development](#iterative-development)
@@ -21,10 +22,8 @@
         - [Add your project to the repository](#add-your-project-to-the-repository)
         - [Configure GitHub Pages](#configure-github-pages)
       - [Create a `vite.config.js` file](#create-a-viteconfigjs-file)
-        - [Support HTTPS](#support-https)
       - [Create a `deploy.yml` file](#create-a-deployyml-file)
       - [Push your changes](#push-your-changes)
-  - [Integrated Debugging with VS Code](#integrated-debugging-with-vs-code)
 
 ## Demo
 
@@ -41,11 +40,7 @@ You must have `npm` and `node` installed.
 - Windows: [Node.js](https://nodejs.org/en/)  You can also use the Windows package manager called `winget`:
   - Open a terminal and run `winget install nodejs`
 - macOS: [Node.js](https://nodejs.org/en/)
-  - MacPorts: `sudo port install npm10`
-  - Homebrew: `brew install node@10`
 - Linux: [Node.js](https://nodejs.org/en/)
-  - apt-get: `apt-get install nodejs`
-  - yum: `yum install nodejs`
 
 #### Project Creation
 
@@ -53,6 +48,22 @@ Start by creating a new `vite` project.
 
 ```bash
 npm create vite
+```
+
+#### Note
+
+If you encounter an issue in Linux systems (tested in Ubuntu 22.04.4 LTS in WSL2) issue with ```npm create vite``` (such as error below), you can modify node versions using the [Node version manager](https://github.com/nvm-sh/nvm) repository. Follow steps detailed therein.
+
+```bash
+❯ npm create vite
+Need to install the following packages:
+  create-vite
+Ok to proceed? (y) y
+npm WARN EBADENGINE Unsupported engine {
+npm WARN EBADENGINE   package: 'create-vite@5.2.3',
+npm WARN EBADENGINE   required: { node: '^18.0.0 || >=20.0.0' },
+npm WARN EBADENGINE   current: { node: 'v12.22.9', npm: '8.5.1' }
+npm WARN EBADENGINE }
 ```
 
 You might need to install the `create-vite` package.  You'll see a prompt something like this if you do:
@@ -107,9 +118,23 @@ First, be sure your server is stopped by using either `Ctrl + C` or `q` to quit.
 
 Remove all the files in the `public` and `src` folders.
 
+Windows CMD:
+
+```cmd
+  del /s /q public\* src\*
+```
+
+Windows PowerShell:
+
+```powershell
+  rm -Recurse "public\*"
+  rm -Recurse "src\*"
+```
+
+Linux/MacOS:
+
 ```bash
-  rm -rf public/*
-  rm -rf src/*
+  rm -rf public/* src/*
 ```
 
 #### Install BabylonJS
@@ -347,28 +372,6 @@ export default defineConfig({
 })
 ```
 
-##### Support HTTPS
-
-To support HTTPS connections (needed for WebXR), install the vite mkcert plugin
-
-```bash
-npm i vite-plugin-mkcert -D
-```
-
-Update the vite.config.js to use https
-
-```javascript
-import { defineConfig } from 'vite'
-> import mkcert from 'vite-plugin-mkcert'
-
-// https://vitejs.dev/config/
-export default defineConfig({
-  base: '/vite-project/',
-> server: { https: true }, // Not needed for Vite 5+
-> plugins: [ mkcert() ]
-})
-```
-
 #### Create a `deploy.yml` file
 
 Create the subdirectory `.github/workflows` and add the following code to a file named `deploy.yml`:
@@ -430,25 +433,3 @@ jobs:
 #### Push your changes
 
 Push your changes up to github.  You should see the deployment of the project in the GitHub Actions tab.  If it is successful, you should be able to browse to `https://<your-github-username>.github.io/<your-repository-name>/`.
-
-## Integrated Debugging with VS Code
-
-Create a `launch.json` file within your .vscode folder and add the following code to it:
-
-```json
-{
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "Launch Chrome",
-            "request": "launch",
-            "type": "chrome",
-            "url": "http://localhost:5173",
-            "webRoot": "${workspaceFolder}"
-        }
-    ]
-}
-```
